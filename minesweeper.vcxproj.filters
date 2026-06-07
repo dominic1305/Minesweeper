@@ -38,7 +38,7 @@
     <ClInclude Include="src\cursor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dimensions.hpp">
+    <ClInclude Include="src\vec2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

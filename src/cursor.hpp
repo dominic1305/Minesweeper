@@ -3,7 +3,7 @@
 #include <thread>
 #include <variant>
 
-#include "dimensions.hpp"
+#include "vec2.hpp"
 #include "grid.hpp"
 
 class Cursor
@@ -14,21 +14,27 @@ private:
 
 public:
 
-						Cursor(Dimensions dim, std::variant<Grid*> display);
+						Cursor(vec2 dim, std::variant<Grid*> display);
 
-						Cursor(const Cursor&) = delete;
-	Cursor&				operator=(const Cursor&) = delete;
+						Cursor(const Cursor&)		= delete;
+	Cursor&				operator=(const Cursor&)	= delete;
 
-						Cursor(Cursor&& other) noexcept;
-	Cursor&				operator=(Cursor&& other) noexcept;
+						Cursor(Cursor&&)			= delete;
+	Cursor&				operator=(Cursor&&)			= delete;
+
+	void				Resize(vec2 new_bounds, vec2 new_pos);
+
+	void				UpdateDisplay(std::variant<Grid*> display);
 
 private:
 
-	static void			KeyboardListener(std::stop_token stoken, Cursor* const cursor);
+	static void			KeyboardListener(Cursor* const cursor);
 
-	Dimensions			m_bounds;
-	Dimensions			m_position;
+	vec2				m_bounds;
+	vec2				m_position;
 	std::jthread		m_thread;
+	char				m_pressedChar;
+	std::atomic_bool	m_threadActive;
 
 	std::variant<Grid*>	m_display;
 
